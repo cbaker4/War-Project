@@ -1,3 +1,4 @@
+import javax.swing.*;
 /*
    Caitlin Baker
    CS 110
@@ -27,6 +28,8 @@ public class Card
     private int suit; 
                               
     private int rank;
+    
+    private String pic;
                              
    /**
       Creates a new playing card.
@@ -37,6 +40,7 @@ public class Card
     {
         this.rank = rank;
         this.suit = suit;
+        pic = null;
     }
     
    /**
@@ -47,6 +51,7 @@ public class Card
     {
          this.rank = otherCard.rank;
          this.suit = otherCard.suit;
+         this.pic = otherCard.pic;
     }
     
    /**
@@ -72,14 +77,15 @@ public class Card
       Returns a description of the suit of this card.
       @return the suit value of the card as a string.
    */
+   
     public String getSuitAsString() 
     {
         switch ( suit ) 
         {
-           case SPADES:   return "Spades";
-           case HEARTS:   return "Hearts";
-           case DIAMONDS: return "Diamonds";
-           case CLUBS:    return "Clubs";
+           case SPADES:   return "s";
+           case HEARTS:   return "h";
+           case DIAMONDS: return "d";
+           case CLUBS:    return "c";
            default:       return "Invalid";
         }
     }
@@ -91,7 +97,7 @@ public class Card
    public String getRankAsString() 
    {
         switch ( rank ) {
-           case 1:   return "Ace";
+           case 1:   return "ace";
            case 2:   return "2";
            case 3:   return "3";
            case 4:   return "4";
@@ -101,9 +107,9 @@ public class Card
            case 8:   return "8";
            case 9:   return "9";
            case 10:  return "10";
-           case 11:  return "Jack";
-           case 12:  return "Queen";
-           case 13:  return "King";
+           case 11:  return "jack";
+           case 12:  return "queen";
+           case 13:  return "king";
            default:  return "??";
         }
     }
@@ -117,6 +123,7 @@ public class Card
         return getRankAsString() + " of " + getSuitAsString();
     }
     
+    
    /**
       Compares two cards to determine if they have the same value.
       @param card the other card
@@ -129,6 +136,17 @@ public class Card
          return false;
       else
          return true;
+   }
+   
+   // method to get pictures
+   public ImageIcon getPic()
+   {
+      
+      pic = suit + rank + ".jpg";
+      
+      ImageIcon p = new ImageIcon(pic);
+      
+      return p;
    }
 }
     
