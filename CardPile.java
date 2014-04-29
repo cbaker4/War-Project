@@ -6,7 +6,7 @@ import java.util.*;
 */
 
 /**
-
+   The functions of each players card pile.
 */
 
 public class CardPile

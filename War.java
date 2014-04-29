@@ -5,7 +5,8 @@
 */
 
 /**
-
+   The class where the actual game is played internally. Determines
+   the winners.
 */
 
 public class War
@@ -15,59 +16,81 @@ public class War
    private CardPile cp2 = new CardPile();
    private Card c1, c2, c3, c4;
    
+   /**
+      constructor
+      Creates a new deck for war
+   */
    public War(Deck1 d)
    {
       warD = d;
       warD.shuffle();
    }
    
-   public String game()
+   // deck for each player
+   public void playerDeck()
    {
       for (int i=0; i < warD.cardsRemaining(); i += 2)
          cp1.addCard(warD.dealCard());
          
       for (int i=0; i < warD.cardsRemaining(); i += 2)
          cp2.addCard(warD.dealCard());
-         
+   }
+   
+   /**
+      @return str Returns a number depending on who won.
+   */
+   public int game()
+   { 
+      // flips a card for each player  
       c1 = new Card(cp1.flipCard());
       c2 = new Card(cp2.flipCard());
       
-      String str;
-   
+      int str;
+      
+      // determines who wins and adds to the pile
       if (c1.getRank() < c2.getRank())
       {
-         str = "Player 2 wins";
+         str = 2;
          cp2.addCard(c2);
          cp2.addCard(c1);
       }
       else if (c1.getRank() > c2.getRank())
       {
-         str = "Player 1 wins";
+         str = 1;
          cp1.addCard(c1);
          cp1.addCard(c2);
       }
       else
       {
-         str = "War";
+         str = 0;
          c3 = new Card(cp1.flipCard());
          c4 = new Card(cp2.flipCard());
-         if (c1.getRank() < c2.getRank())
+         if (c3.getRank() < c4.getRank())
          {
-            str = "Player 2 wins";
+            str = 2;
             cp2.addCard(c2);
+            cp2.addCard(c1);
+            cp2.addCard(c3);
+            cp2.addCard(c4);
          }
-         else if (c1.getRank() > c2.getRank())
+         else if (c3.getRank() > c4.getRank())
          {
-            str = "Player 1 wins";
+            str = 1;
+            cp1.addCard(c2);
             cp1.addCard(c1);
+            cp1.addCard(c3);
+            cp1.addCard(c4);
          }
          else
-            str = "Tie";
+            str = 0;
       }
       
       return str;      
    }
    
+   /**
+      @return str1 Returns the winner of the whole game
+   */
    public String determineWinner()
    {
       String str1;
@@ -79,6 +102,5 @@ public class War
       else
          str1 = "Tie Game"; 
       return str1;  
-   }
-   
+   } 
 }

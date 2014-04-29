@@ -5,7 +5,7 @@
 */
 
 /**
-
+   A class to compare each individual card.
 */
 
 public class Card 
@@ -24,15 +24,14 @@ public class Card
                             KING = 13;
                             
     // instance variables
-    private int suit;   // The suit of this card, one of the constants
-                              // SPADES, HEARTS, DIAMONDS, CLUBS.
+    private int suit; 
                               
-    private int rank;  // The rank of this card, from 1 to 13.
+    private int rank;
                              
    /**
-   * Creates a new playing card.
-   * @param suit the suit value of this card.
-   * @param rank the rank rank of this card.
+      Creates a new playing card.
+      @param suit the suit value of this card.
+      @param rank the rank rank of this card.
    */
     public Card(int rank, int suit) 
     {
@@ -41,8 +40,8 @@ public class Card
     }
     
    /**
-   * Creates a new playing card as exact copy of otherCard
-   * @param otherCar the card to be copied
+      Creates a new playing card as exact copy of otherCard
+      @param otherCar the card to be copied
    */
     public Card(Card otherCard) 
     {
@@ -51,34 +50,32 @@ public class Card
     }
     
    /**
-   * Returns the suit of the card.
-   * @return a Suit constant representing the suit value of the card.
+      Returns the suit of the card.
+      @return a Suit constant representing the suit value of the card.
    */
   
     public int getSuit() 
     {
       return suit;
     }
+   
    /**
-   * Returns the rank of the card.
-   * @return a Rank constant representing the rank value of the card.
+      Returns the rank of the card.
+      @return a Rank constant representing the rank value of the card.
    */
-
     public int getRank() 
     {
-            // Return the int that codes for this card's rank.
         return rank;
     }
     
    /**
-   * Returns a description of the suit of this card.
-   * @return the suit value of the card as a string.
+      Returns a description of the suit of this card.
+      @return the suit value of the card as a string.
    */
     public String getSuitAsString() 
     {
-            // Return a String representing the card's suit.
-            // (If the card's suit is invalid, "??" is returned.)
-        switch ( suit ) {
+        switch ( suit ) 
+        {
            case SPADES:   return "Spades";
            case HEARTS:   return "Hearts";
            case DIAMONDS: return "Diamonds";
@@ -86,9 +83,10 @@ public class Card
            default:       return "Invalid";
         }
     }
+   
    /**
-   * Returns a description of the rank of this card.
-   * @return the rank value of the card as a string.
+      Returns a description of the rank of this card.
+      @return the rank value of the card as a string.
    */
    public String getRankAsString() 
    {
@@ -109,21 +107,21 @@ public class Card
            default:  return "??";
         }
     }
+   
    /**
-   * Returns a description of this card.
-   * @return the name of the card.
+      Returns a description of this card.
+      @return the name of the card.
    */
-
     public String toString() 
     {
         return getRankAsString() + " of " + getSuitAsString();
     }
     
    /**
-   * Compares two cards to determine if they have the same value.
-   * @param card the other card
-   * @return true if the two cards have the same rank and suitvalues,
-   * falseotherwise.
+      Compares two cards to determine if they have the same value.
+      @param card the other card
+      @return true if the two cards have the same rank and suitvalues,
+      falseotherwise.
    */
    public boolean equals(Card otherCard ) 
    {
@@ -132,21 +130,6 @@ public class Card
       else
          return true;
    }
-   
-   public int compareWar(Card other)
-   {
-      if ((rank == 0) && (other.rank != 0))
-	      return 1;
-	   else if ((other.rank == 0) && (rank != 0))
-	      return -1;
-	   else if (rank > other.rank)
-	      return 1;
-	   else if (other.rank > rank)
-	      return -1;
-	   else
-	      return 0;
-   }
-
 }
     
 

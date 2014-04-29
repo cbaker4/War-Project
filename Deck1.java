@@ -7,7 +7,7 @@ import java.util.ArrayList;
 */
 
 /**
-
+   A class for the deck of cards.
 */
 
 public class Deck1 
@@ -15,10 +15,19 @@ public class Deck1
    final int CARDS_IN_DECK = 52;
 
    ArrayList<Card> deck;
+   
+   /**
+      Constructor
+      Calls fresh deck
+   */
    public Deck1()
    {
       freshDeck();
    }
+   
+   /**
+      Creates a new deck of cards
+   */
    public void freshDeck()
    {
       deck = new ArrayList<Card>();
@@ -33,15 +42,26 @@ public class Deck1
       }
    }
    
+   /**
+      @return c returns the card from the top of deck
+   */
    public Card dealCard()
    {
-      Card c = deck.remove(0);  //  remove it (returns removed object)
+      Card c = deck.remove(0);
       return c;
    }
+   
+   /**
+      @return The size of the deck
+   */
    public int cardsRemaining()
    {  
       return deck.size();
    }
+   
+   /**
+      Shuffles the deck
+   */
    public void shuffle()
    {
       int randNum;
@@ -55,24 +75,13 @@ public class Deck1
          deck.set(randNum,temp);
       }      
    }
+   
+   /**
+      Determines if the deck is empty
+   */
    public boolean isEmpty()
    {
       return (deck.size() == 0);
-   }
-
-   public static Card highCard(Card...cards)
-   {
-   
-      Card high = cards[0];
-      for (int i=1;i<cards.length;i++)
-      {
-         if (cards[i].getRank() > high.getRank())
-         {
-         
-            high = cards[i];
-         }
-      }
-      return high;
    }
 }
 
