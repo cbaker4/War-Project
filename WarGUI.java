@@ -82,11 +82,7 @@ public class WarGUI extends JFrame
    {
       public void actionPerformed(ActionEvent ae)
       {
-         
-         
          game.playerDeck();
-         
-         
          
          if (game.gameOver() == false)
          {

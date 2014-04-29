@@ -9,7 +9,7 @@ import java.util.*;
    The functions of each players card pile.
 */
 
-public class CardPile
+public class CardPile extends Deck1 implements Deck1Interface
 {
    private ArrayList<Card> cardPile;
    
@@ -42,5 +42,30 @@ public class CardPile
    public int size()
    {
       return cardPile.size();
+   }
+   
+   /**
+      Determines if the deck is empty
+   */
+   public boolean isEmpty()
+   {
+      return (deck.size() == 0);
+   }
+   
+   /**
+      shuffles the deck
+   */
+   public void shuffle()
+   {
+      int randNum;
+      Card temp;
+      Random r = new Random();
+      for (int i = 0; i < deck.size(); i++)
+      {
+         randNum = r.nextInt(deck.size());
+         temp = deck.get(i);
+         deck.set(i,deck.get(randNum));
+         deck.set(randNum,temp);
+      }      
    }
 }

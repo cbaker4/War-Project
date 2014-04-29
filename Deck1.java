@@ -10,7 +10,7 @@ import java.util.ArrayList;
    A class for the deck of cards.
 */
 
-public class Deck1 
+public class Deck1 implements Deck1Interface
 {
    final int CARDS_IN_DECK = 52;
 

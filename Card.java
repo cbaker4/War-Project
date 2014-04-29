@@ -9,7 +9,7 @@ import javax.swing.*;
    A class to compare each individual card.
 */
 
-public class Card 
+public class Card implements CardInterface
 {     
     // Constants     
     // suits
@@ -45,7 +45,7 @@ public class Card
     
    /**
       Creates a new playing card as exact copy of otherCard
-      @param otherCar the card to be copied
+      @param otherCard the card to be copied
    */
     public Card(Card otherCard) 
     {
@@ -113,20 +113,10 @@ public class Card
            default:  return "??";
         }
     }
-   
-   /**
-      Returns a description of this card.
-      @return the name of the card.
-   */
-    public String toString() 
-    {
-        return getRankAsString() + " of " + getSuitAsString();
-    }
-    
     
    /**
       Compares two cards to determine if they have the same value.
-      @param card the other card
+      @param otherCard the other card
       @return true if the two cards have the same rank and suitvalues,
       falseotherwise.
    */

@@ -1,3 +1,5 @@
+import java.util.Random;
+import java.util.ArrayList;
 /*
    Caitlin Baker
    CS 110
@@ -14,7 +16,9 @@ public class War
    private Deck1 warD;
    private CardPile cp1 = new CardPile();
    private CardPile cp2 = new CardPile();
+   private CardPile wp;
    private Card c1, c2, c3, c4, c5, c6;
+   private int w2;
    
    /**
       constructor
@@ -36,26 +40,43 @@ public class War
          cp2.addCard(warD.dealCard());
    }
    
+   /**
+      @return c1 returns the flipped card
+   */
    public Card flipCard1()
    {
-      // flips a card for each player  
+      // flips a card for player  
       c1 = new Card(cp1.flipCard());
       return c1;
       
    }
    
+   /**
+      @return c2 returns the flipped card
+   */
    public Card flipCard2()
    {
       c2 = new Card(cp2.flipCard());
       return c2;
    }
    
-   public void wFlipCard()
+   /**
+      @return wp returns the flipped card for a war
+   */
+   public CardPile wFlipCard()
    {
+      wp = new CardPile();
       c3 = new Card(cp1.flipCard());
       c4 = new Card(cp2.flipCard());
       c5 = new Card(cp1.flipCard());
       c6 = new Card(cp2.flipCard());
+      
+      wp.addCard(c3);
+      wp.addCard(c4);
+      wp.addCard(c5);
+      wp.addCard(c6);
+      
+      return wp;
    }
    
    /**
@@ -64,10 +85,10 @@ public class War
    public int play()
    { 
       // flips a card for each player  
-      //c1 = new Card(cp1.flipCard());
-      //c2 = new Card(cp2.flipCard());
-      flipCard1();
-      flipCard2();
+      if (cp1.size() != 0)
+         flipCard1();
+      if (cp2.size() != 0)
+         flipCard2();
       
       int rw;
       
@@ -89,6 +110,19 @@ public class War
          // call war
          rw = 0;
          war();
+         
+         // add first cards
+         if(w2 == 2)
+         {
+            cp2.addCard(c2);
+            cp2.addCard(c1);
+         }
+         else if(w2 == 1)
+         {
+            cp1.addCard(c2);
+            cp1.addCard(c1);
+         }
+         
       }
       
       return rw;      
@@ -97,14 +131,10 @@ public class War
    // method for war
    public int war()
    {
-      int w2;
       
       wFlipCard();
-      //Card c3 = new Card(cp1.flipCard());
-      //Card c4 = new Card(cp2.flipCard());
-      //Card c5 = new Card(cp1.flipCard());
-      //Card c6 = new Card(cp2.flipCard());
       
+      // determine winner
       if (c5.getRank() < c6.getRank())
       {
          w2 = 2;
@@ -132,9 +162,9 @@ public class War
    }
    
    /**
-      Determines if the deck is empty
+      @return status Determines if the deck is empty
    */
-   public boolean gameOver()
+   public boolean isEmpty()
    {
       boolean status;
       
@@ -162,6 +192,7 @@ public class War
       return dw;  
    } 
    
+   // main method to test war game
    public static void main(String [] args)
    {
       Deck1 d = new Deck1();
@@ -169,9 +200,9 @@ public class War
       
       game.playerDeck();
       
-      while (game.gameOver() == false)
+      while (game.isEmpty() == false)
          {
-            game.play();;
+            game.play();
             if (game.play() == 1)
                System.out.println("Player 1 wins"); 
             else if (game.play() == 2)
@@ -181,15 +212,14 @@ public class War
             
             
          }
-         if (game.gameOver() == true)
-         {
+         
             if(game.determineWinner() == 1)
                System.out.println("Player 1 wins game");
             else if(game.determineWinner() == 2)
                System.out.println("Player 2 wins game");
             else if(game.determineWinner() == 0)
                System.out.println("Tie");
-         } 
+          
 
    }
 }
