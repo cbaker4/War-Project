@@ -15,53 +15,63 @@ import java.awt.event.*;
 public class WarGUI extends JFrame
 {
    private War game;
-   private JPanel topPanel, bottomPanel, centerPanel1, centerPanel2;
-   private JLabel status, title, title1, title2, t1, t2,t3,t4;
+   private JPanel topPanel, bottomPanel, gamePanel, right, left;
+   private JLabel status, title, ply1, ply2, b1, b2;
    private Deck1 d;
    private JButton c3;
    
    public WarGUI()
    {
-      //create layout
+      // create layout
       setLayout(new BorderLayout());
       setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       setSize(700,600);
+      
+      // top panel
       topPanel = new JPanel();
       topPanel.setBackground(Color.cyan);
       title = new JLabel("Caitlin's Game of War");
       title.setFont(new Font("ARIAL",Font.BOLD,30));
       topPanel.add(title);
-      JPanel left = new JPanel(new FlowLayout());
-      JPanel right = new JPanel(new FlowLayout());
-      t1 = new JLabel("Player 1");
-      //t3 = new JLabel();
-      //t3.setIcon(new ImageIcon("back.jpg"));
-      t2 = new JLabel("Player 2");
-      //t4 = new JLabel();
-      //t4.setIcon(new ImageIcon("back.jpg"));
-      right.add(t2/*,t4*/);
-      left.add(t1/*,t3*/);
       add(topPanel, BorderLayout.NORTH);
+      
+      // left and right panel
+      ImageIcon back;
+      left = new JPanel();
+      ply1 = new JLabel("Player 1");
+      back = new ImageIcon("back.jpg");
+      ply1.setIcon(back);
+      left.add(ply1);
+      right = new JPanel();
+      ply2 = new JLabel("Player 2");
+      ply2.setIcon(back);
+      right.add(ply2);
       add(left, BorderLayout.WEST);
       add(right, BorderLayout.EAST);
       
+      // center panel
       c3 = new JButton("Flip");
-      add(c3, BorderLayout.SOUTH);
-
-      // calling game of War
+      gamePanel = new JPanel();
+      b1 = new JLabel();
+      b2 = new JLabel();
+      c3.addActionListener(new ButtonListener());
+      b1.addActionListener(new ButtonListener());
+      b2.addActionListener(new ButtonListener());
+      gamePanel.add(c3);
+      gamePanel.add(b1);
+      gamePanel.add(b2);
+      add(gamePanel, BorderLayout.CENTER);
+      
+      // bottom panel
+      bottomPanel = new JPanel();
+      bottomPanel.setBackground(Color.cyan);
+      status = new JLabel("Playing Game");
+      status.setFont(new Font("ARIAL",Font.BOLD,24));
+      bottomPanel.add(status);
+      add(bottomPanel, BorderLayout.SOUTH);
+      
       d = new Deck1();
       game = new War(d);
-      title1 = new JLabel("Win");
-      centerPanel1 = new JPanel(new FlowLayout());
-      centerPanel1.add(title1);
-      //title2 = new JLabel(game.determineWinner());
-      //centerPanel2 = new JPanel();
-      //centerPanel2.add(title2);
-      add(centerPanel1, BorderLayout.CENTER);
-      // display winner for round
-      // display winner overall
-      
-      // divide center panel
       
       setVisible(true);
          
@@ -72,12 +82,42 @@ public class WarGUI extends JFrame
    {
       public void actionPerformed(ActionEvent ae)
       {
-         // click flip
-            // react
-               // display card
          
          
+         game.playerDeck();
+         
+         
+         
+         if (game.gameOver() == false)
+         {
+            game.play();
+            b1.setIcon(game.flipCard1().getPic());
+            b2.setIcon(game.flipCard2().getPic());
+            if (game.play() == 1)
+               status.setText("Player 1 wins"); 
+            else if (game.play() == 2)
+               status.setText("Player 2 wins");
+            else
+               status.setText("War");
+            
+            
+         }
+         else if (game.gameOver() == true)
+         {
+            if(game.determineWinner() == 1)
+               status.setText("Player 1 wins game");
+            else if(game.determineWinner() == 2)
+               status.setText("Player 2 wins game");
+            else
+               status.setText("Tie");
+            disableAll();
+         } 
       }
+   }
+   
+   public void disableAll()
+   {
+      c3.setEnabled(false);
    }
    
    public static void main(String [] args)
