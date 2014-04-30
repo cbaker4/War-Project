@@ -18,7 +18,6 @@ public class War
    private CardPile cp2 = new CardPile();
    private CardPile wp, wp1;
    private Card c1, c2, c3, c4, c5, c6;
-   private int w2 = 0;
    
    /**
       constructor
@@ -41,7 +40,7 @@ public class War
    }
    
    /**
-      @return c1 returns the flipped card
+      @return c1 returns the flipped card for player 1
    */
    public Card flipCard1()
    {
@@ -52,7 +51,7 @@ public class War
    }
    
    /**
-      @return c2 returns the flipped card
+      @return c2 returns the flipped card for player 2
    */
    public Card flipCard2()
    {
@@ -77,28 +76,36 @@ public class War
       return wp;
    }
    
+   /**
+      @return wp1 Returns a CardPile for the war
+   */
    public CardPile wFlipCard2()
    {
       wp1 = new CardPile();
       c5 = new Card(cp1.flipCard());
       c6 = new Card(cp2.flipCard());
       
-      wp.addCard(c5);
-      wp.addCard(c6);
+      wp1.addCard(c5);
+      wp1.addCard(c6);
       
       return wp1;
    }
    
    /**
-      @return str Returns a string depending on who won.
+      Flips a card for each player
    */
    public void play()
    { 
-      // flips a card for each player  
-      if (cp1.size() != 0)
-         flipCard1();
-      if (cp2.size() != 0)
-         flipCard2();
+      // flips a card for each player
+      if (cp1.size() == 0)
+         determineWinner();
+      else if (cp2.size() == 0)
+         determineWinner();
+      else
+      { 
+         flipCard1(); // player 1
+         flipCard2(); // player 2
+      }
     }
     
     /**
@@ -109,25 +116,23 @@ public class War
       // determines who wins and adds to the pile
       if (c1.getRank() < c2.getRank())
       {
-         
          cp2.addCard(c2);
          cp2.addCard(c1);
          return 2;
       }
       else if (c1.getRank() > c2.getRank())
       {
-         
          cp1.addCard(c1);
          cp1.addCard(c2);
          return 1;
       }
       
-      // I was having issues with getting war to work
-      //else
-      //{
+      // I couldn't get the program to run when I had a war.
+      /*else
+      {
          // call war
-         //war();
-      //}
+         war();
+      }*/
       
       return 0;
    }
@@ -137,17 +142,23 @@ public class War
    // method for war
    public void war()
    {
-      if (cp1.size() != 0)
+      if (cp1.size() == 0)
+         determineWinner();
+      else if (cp2.size() == 0)
+         determineWinner();
+      else
+      {
          wFlipCard();
-      if (cp2.size() != 0)
          wFlipCard2();
-      wWinner();
+         wWinner();  
+      }
+      
    }
    
    /**
-      @return int who won the war
+      who won the war
     */
-   public int wWinner()
+   public void wWinner()
    {
       // determine winner
       if (c5.getRank() < c6.getRank())
@@ -157,7 +168,7 @@ public class War
          cp2.addCard(c4);
          cp2.addCard(c5);
          cp2.addCard(c6);
-         w2 = 2;
+         //w2 = 2;
       }
       else if (c5.getRank() > c6.getRank())
       {
@@ -166,11 +177,11 @@ public class War
          cp1.addCard(c4);
          cp1.addCard(c5);
          cp1.addCard(c6);
-         w2 = 1;
+         //w2 = 1;
       }
       else 
          war();
-      return w2;
+      //return w2;
    }
    
    /**

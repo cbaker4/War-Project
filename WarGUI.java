@@ -23,12 +23,14 @@ public class WarGUI extends JFrame
    private Deck1 d;
    private JButton c3;
    
+   private final static int WIDTH = 700, HEIGHT = 600;
+   
    public WarGUI()
    {
       // create layout
       setLayout(new BorderLayout());
       setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-      setSize(700,600);
+      setSize(WIDTH,HEIGHT);
       
       // top panel
       topPanel = new JPanel();
@@ -41,12 +43,12 @@ public class WarGUI extends JFrame
       // left and right panel
       ImageIcon back;
       left = new JPanel();
-      ply1 = new JLabel("Player 1");
+      ply1 = new JLabel();
       back = new ImageIcon("back.jpg");
       ply1.setIcon(back);
       left.add(ply1);
       right = new JPanel();
-      ply2 = new JLabel("Player 2");
+      ply2 = new JLabel();
       ply2.setIcon(back);
       right.add(ply2);
       add(left, BorderLayout.WEST);
@@ -65,7 +67,7 @@ public class WarGUI extends JFrame
       
       // bottom panel
       bottomPanel = new JPanel();
-      bottomPanel.setBackground(Color.cyan);
+      bottomPanel.setBackground(Color.green);
       status = new JLabel("Playing Game");
       status.setFont(new Font("ARIAL",Font.BOLD,24));
       bottomPanel.add(status);
