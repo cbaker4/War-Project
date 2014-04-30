@@ -121,12 +121,15 @@ public class War
          cp1.addCard(c2);
          return 1;
       }
-      else
-      {
+      
+      // I was having issues with getting war to work
+      //else
+      //{
          // call war
-         war();
-         return 0;
-      }
+         //war();
+      //}
+      
+      return 0;
    }
          
 
@@ -165,8 +168,8 @@ public class War
          cp1.addCard(c6);
          w2 = 1;
       }
-      else
-         w2 = 0;
+      else 
+         war();
       return w2;
    }
    

@@ -12,6 +12,9 @@ import java.awt.event.*;
    for each round and overall.
 */
 
+/* This works for everything. I just don't have it operate when a
+   war happens. */  
+
 public class WarGUI extends JFrame
 {
    private War game;
@@ -25,7 +28,7 @@ public class WarGUI extends JFrame
       // create layout
       setLayout(new BorderLayout());
       setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-      setSize(700,700);
+      setSize(700,600);
       
       // top panel
       topPanel = new JPanel();
@@ -52,11 +55,9 @@ public class WarGUI extends JFrame
       // center panel
       c3 = new JButton("Flip");
       gamePanel = new JPanel(new FlowLayout());
-      b1 = new JLabel();
-      b2 = new JLabel();
+      b1 = new JLabel("Player 1");
+      b2 = new JLabel("Player 2");
       c3.addActionListener(new ButtonListener());
-      //b1.addActionListener(new ButtonListener());
-      //b2.addActionListener(new ButtonListener());
       gamePanel.add(c3);
       gamePanel.add(b1);
       gamePanel.add(b2);
@@ -70,6 +71,7 @@ public class WarGUI extends JFrame
       bottomPanel.add(status);
       add(bottomPanel, BorderLayout.SOUTH);
       
+      // call game of war
       d = new Deck1();
       game = new War(d);
       
@@ -85,12 +87,15 @@ public class WarGUI extends JFrame
       {
          game.playerDeck();
          
+         
          // winner of round
          if (game.isEmpty() == false)
          {
             game.play();
+            
             b1.setIcon(game.flipCard1().getPic());
             b2.setIcon(game.flipCard2().getPic());
+            
             if (game.winner() == 1)
                status.setText("Player 1 wins"); 
             else if (game.winner() == 2)

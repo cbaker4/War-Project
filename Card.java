@@ -51,7 +51,7 @@ public class Card implements CardInterface
     {
          this.rank = otherCard.rank;
          this.suit = otherCard.suit;
-         this.pic = otherCard.pic;
+         //this.pic = otherCard.pic;
     }
     
    /**
@@ -132,7 +132,7 @@ public class Card implements CardInterface
    public ImageIcon getPic()
    {
       
-      pic = suit + rank + ".jpg";
+      pic = getRankAsString() + getSuitAsString() + ".jpg";
       
       ImageIcon p = new ImageIcon(pic);
       
