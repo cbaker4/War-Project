@@ -88,11 +88,12 @@ public class WarGUI extends JFrame
          // winner of round
          if (game.isEmpty() == false)
          {
+            game.play();
             b1.setIcon(game.flipCard1().getPic());
             b2.setIcon(game.flipCard2().getPic());
-            if (game.play() == 1)
+            if (game.winner() == 1)
                status.setText("Player 1 wins"); 
-            else if (game.play() == 2)
+            else if (game.winner() == 2)
                status.setText("Player 2 wins");
             else
                status.setText("War");
