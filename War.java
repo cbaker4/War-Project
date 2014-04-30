@@ -18,7 +18,7 @@ public class War
    private CardPile cp2 = new CardPile();
    private CardPile wp;
    private Card c1, c2, c3, c4, c5, c6;
-   private int w2;
+   private int w2 = 0;
    
    /**
       constructor
@@ -90,25 +90,24 @@ public class War
       if (cp2.size() != 0)
          flipCard2();
       
-      int rw;
-      
       // determines who wins and adds to the pile
       if (c1.getRank() < c2.getRank())
       {
-         rw = 2;
+         
          cp2.addCard(c2);
          cp2.addCard(c1);
+         return 2;
       }
       else if (c1.getRank() > c2.getRank())
       {
-         rw = 1;
+         
          cp1.addCard(c1);
          cp1.addCard(c2);
+         return 1;
       }
       else
       {
          // call war
-         rw = 0;
          war();
          
          // add first cards
@@ -116,16 +115,20 @@ public class War
          {
             cp2.addCard(c2);
             cp2.addCard(c1);
+            return 2;
          }
          else if(w2 == 1)
          {
             cp1.addCard(c2);
             cp1.addCard(c1);
+            return 1;
          }
-         
-      }
-      
-      return rw;      
+         else
+         {
+            war();
+         }
+         return 0;  
+      }      
    }
    
    // method for war
@@ -137,27 +140,24 @@ public class War
       // determine winner
       if (c5.getRank() < c6.getRank())
       {
-         w2 = 2;
+         
          cp2.addCard(c3);
          cp2.addCard(c4);
          cp2.addCard(c5);
          cp2.addCard(c6);
+         w2 = 2;
       }
       else if (c5.getRank() > c6.getRank())
       {
-         w2 = 1;
+         
          cp1.addCard(c3);
          cp1.addCard(c4);
          cp1.addCard(c5);
          cp1.addCard(c6);
+         w2 = 1;
       }
       else
-      {
-         // call war
          w2 = 0;
-         war();
-      }
-      
       return w2;
    }
    
@@ -181,15 +181,10 @@ public class War
    */
    public int determineWinner()
    {
-      int dw;
-      
       if (cp1.size() > cp2.size())
-         dw = 1;
-      else if (cp1.size() < cp2.size())
-         dw = 2;
+         return 1;
       else
-         dw = 0; 
-      return dw;  
+         return 2;  
    } 
    
    // main method to test war game
@@ -201,24 +196,19 @@ public class War
       game.playerDeck();
       
       while (game.isEmpty() == false)
-         {
-            game.play();
-            if (game.play() == 1)
-               System.out.println("Player 1 wins"); 
-            else if (game.play() == 2)
-               System.out.println("Player 2 wins");
-            else
-               System.out.println("War");
-            
-            
-         }
+      {
+         if (game.play() == 1)
+            System.out.println("Player 1 wins"); 
+         else if (game.play() == 2)
+            System.out.println("Player 2 wins");
+         else
+            System.out.println("War");     
+      }
          
-            if(game.determineWinner() == 1)
-               System.out.println("Player 1 wins game");
-            else if(game.determineWinner() == 2)
-               System.out.println("Player 2 wins game");
-            else if(game.determineWinner() == 0)
-               System.out.println("Tie");
+      if(game.determineWinner() == 1)
+         System.out.println("Player 1 wins game");
+      else if(game.determineWinner() == 2)
+         System.out.println("Player 2 wins game");
           
 
    }

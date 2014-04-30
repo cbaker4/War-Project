@@ -16,7 +16,7 @@ public class WarGUI extends JFrame
 {
    private War game;
    private JPanel topPanel, bottomPanel, gamePanel, right, left;
-   private JLabel status, title, ply1, ply2, b1, b2;
+   private JLabel status, title, ply1, ply2,b1,b2;
    private Deck1 d;
    private JButton c3;
    
@@ -25,7 +25,7 @@ public class WarGUI extends JFrame
       // create layout
       setLayout(new BorderLayout());
       setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-      setSize(700,600);
+      setSize(700,700);
       
       // top panel
       topPanel = new JPanel();
@@ -51,12 +51,12 @@ public class WarGUI extends JFrame
       
       // center panel
       c3 = new JButton("Flip");
-      gamePanel = new JPanel();
+      gamePanel = new JPanel(new FlowLayout());
       b1 = new JLabel();
       b2 = new JLabel();
       c3.addActionListener(new ButtonListener());
-      b1.addActionListener(new ButtonListener());
-      b2.addActionListener(new ButtonListener());
+      //b1.addActionListener(new ButtonListener());
+      //b2.addActionListener(new ButtonListener());
       gamePanel.add(c3);
       gamePanel.add(b1);
       gamePanel.add(b2);
@@ -80,13 +80,14 @@ public class WarGUI extends JFrame
    // to handle the button events
    private class ButtonListener implements ActionListener
    {
+      // runs the game when you click flip
       public void actionPerformed(ActionEvent ae)
       {
          game.playerDeck();
          
-         if (game.gameOver() == false)
+         // winner of round
+         if (game.isEmpty() == false)
          {
-            game.play();
             b1.setIcon(game.flipCard1().getPic());
             b2.setIcon(game.flipCard2().getPic());
             if (game.play() == 1)
@@ -98,19 +99,20 @@ public class WarGUI extends JFrame
             
             
          }
-         else if (game.gameOver() == true)
+         
+         // winner of game
+         else if (game.isEmpty() == true)
          {
             if(game.determineWinner() == 1)
                status.setText("Player 1 wins game");
             else if(game.determineWinner() == 2)
                status.setText("Player 2 wins game");
-            else
-               status.setText("Tie");
             disableAll();
          } 
       }
    }
    
+   // disable buttons
    public void disableAll()
    {
       c3.setEnabled(false);
